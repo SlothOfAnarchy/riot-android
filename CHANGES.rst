@@ -8,7 +8,7 @@ Improvements 🙌:
  -
 
 Other changes:
- -
+ - Swap reply and mark-as-read buttons in notification
 
 Bugfix 🐛:
  -

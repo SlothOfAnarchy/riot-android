@@ -430,19 +430,6 @@ object NotificationUtils {
                     }
 
                     //Add actions and notification intents
-                    // Mark room as read
-                    val markRoomReadIntent = Intent(context, NotificationBroadcastReceiver::class.java)
-                    markRoomReadIntent.action = MARK_ROOM_READ_ACTION
-                    markRoomReadIntent.data = Uri.parse("foobar://${roomInfo.roomId}")
-                    markRoomReadIntent.putExtra(NotificationBroadcastReceiver.KEY_ROOM_ID, roomInfo.roomId)
-                    val markRoomReadPendingIntent = PendingIntent.getBroadcast(context, System.currentTimeMillis().toInt(), markRoomReadIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT)
-
-                    addAction(NotificationCompat.Action(
-                            R.drawable.ic_material_done_all_white,
-                            context.getString(R.string.action_mark_room_read),
-                            markRoomReadPendingIntent))
-
                     // Quick reply
                     if (!roomInfo.hasSmartReplyError) {
                         buildQuickReplyIntent(context, roomInfo.roomId, senderDisplayNameForReplyCompat)?.let { replyPendingIntent ->
@@ -457,6 +444,19 @@ object NotificationUtils {
                                     }
                         }
                     }
+
+                    // Mark room as read
+                    val markRoomReadIntent = Intent(context, NotificationBroadcastReceiver::class.java)
+                    markRoomReadIntent.action = MARK_ROOM_READ_ACTION
+                    markRoomReadIntent.data = Uri.parse("foobar://${roomInfo.roomId}")
+                    markRoomReadIntent.putExtra(NotificationBroadcastReceiver.KEY_ROOM_ID, roomInfo.roomId)
+                    val markRoomReadPendingIntent = PendingIntent.getBroadcast(context, System.currentTimeMillis().toInt(), markRoomReadIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT)
+
+                    addAction(NotificationCompat.Action(
+                            R.drawable.ic_material_done_all_white,
+                            context.getString(R.string.action_mark_room_read),
+                            markRoomReadPendingIntent))
 
                     if (openRoomIntent != null) {
                         setContentIntent(openRoomIntent)
